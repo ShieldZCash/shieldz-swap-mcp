@@ -4,6 +4,8 @@
 [![CI](https://github.com/ShieldZCash/shieldz-swap-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/ShieldZCash/shieldz-swap-mcp/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
+[![Shieldz Swap MCP MCP server – quality and maintenance score on Glama](https://glama.ai/mcp/servers/ShieldZCash/shieldz-swap-mcp/badges/card.svg)](https://glama.ai/mcp/servers/ShieldZCash/shieldz-swap-mcp)
+
 Model Context Protocol server for [Shieldz Swap](https://swap.shieldz.cash). It lets an AI agent compare live cross-chain swap routes, create non-custodial swaps and track them to payout, across 340+ assets on 40+ chains: BTC, ETH, SOL, ZEC, USDC, USDT, TRON, BSC, Base, Arbitrum and more.
 
 **Not using an agent?** The same swap runs in your browser at [swap.shieldz.cash](https://swap.shieldz.cash): pick two coins, paste your address and send from your own wallet.
