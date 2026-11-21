@@ -1,0 +1,78 @@
+{
+  "manifest_version": "0.3",
+  "name": "shieldz-swap",
+  "display_name": "Shieldz Swap",
+  "version": "0.1.0",
+  "description": "Non-custodial cross-chain swaps: live route quotes and deposit-address swaps on 40+ chains. No API key.",
+  "long_description": "Compare live cross-chain swap routes across NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden, create a swap that returns a one-time deposit address, and track it to payout. Covers BTC, ETH, SOL, ZEC, USDC, USDT and 340+ assets on 40+ chains. Non-custodial: the user sends funds from their own wallet and the server never holds keys. No account, no KYC, flat 0.15% fee included in quotes.",
+  "author": {
+    "name": "Shieldz",
+    "url": "https://swap.shieldz.cash"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShieldZCash/shieldz-swap-mcp.git"
+  },
+  "homepage": "https://swap.shieldz.cash",
+  "documentation": "https://github.com/ShieldZCash/shieldz-swap-mcp#readme",
+  "support": "https://github.com/ShieldZCash/shieldz-swap-mcp/issues",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/stdio.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/stdio.js"
+      ],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "list_assets",
+      "description": "Search 340+ routable assets on 40+ chains and get their exact ids."
+    },
+    {
+      "name": "get_quote",
+      "description": "Live cross-chain quote racing NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden."
+    },
+    {
+      "name": "create_swap",
+      "description": "Open a non-custodial swap and get a one-time deposit address."
+    },
+    {
+      "name": "get_swap_status",
+      "description": "Check a swap: pending, processing, success, refunded, expired, with tx links."
+    },
+    {
+      "name": "report_deposit",
+      "description": "Report the deposit tx hash so the swap is detected faster."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": [
+    "swap",
+    "cross-chain",
+    "bridge",
+    "crypto",
+    "bitcoin",
+    "zcash",
+    "non-custodial",
+    "defi"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "privacy_policies": [
+    "https://swap.shieldz.cash/privacy"
+  ]
+}

@@ -1,0 +1,17 @@
+name: Release bundle
+on:
+  release:
+    types: [published]
+permissions:
+  contents: write
+jobs:
+  mcpb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+      - run: ./scripts/pack-mcpb.sh
+      - run: gh release upload "${{ github.event.release.tag_name }}" shieldz-swap.mcpb --clobber
+        env: { GH_TOKEN: "${{ github.token }}" }

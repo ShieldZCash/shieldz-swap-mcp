@@ -1,0 +1,68 @@
+{
+  "name": "@shieldz/swap-mcp",
+  "version": "0.1.0",
+  "mcpName": "io.github.ShieldZCash/swap-mcp",
+  "description": "Cross-chain crypto swap for AI agents, powered by Shieldz Swap (https://swap.shieldz.cash). Swap BTC, ETH, SOL, ZEC, USDC, USDT and 340+ assets across 40+ chains from your own wallet: best route from NEAR Intents, Chainflip, Relay and more. No account, no KYC, flat 0.15% fee.",
+  "type": "module",
+  "bin": {
+    "shieldz-swap-mcp": "dist/stdio.js"
+  },
+  "main": "dist/core.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "start:remote": "node dist/remote.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "shieldz",
+    "shieldz-swap",
+    "crypto-swap",
+    "cross-chain-swap",
+    "cross-chain",
+    "bridge",
+    "dex-aggregator",
+    "non-custodial",
+    "no-kyc",
+    "bitcoin",
+    "ethereum",
+    "solana",
+    "zcash",
+    "usdt",
+    "usdc",
+    "near-intents",
+    "chainflip",
+    "ai-agent"
+  ],
+  "license": "MIT",
+  "author": "Deniz Yanbollu (@dnzynbl)",
+  "homepage": "https://swap.shieldz.cash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShieldZCash/shieldz-swap-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShieldZCash/shieldz-swap-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
