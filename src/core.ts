@@ -1,7 +1,7 @@
 // Shared by the stdio and remote servers: API client, unit conversion and tool definitions.
 import { randomUUID } from "node:crypto";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 export const SITE = "https://swap.shieldz.cash";
 
 export interface Ctx {
@@ -277,7 +277,7 @@ export const TOOLS: ToolDef[] = [
     name: "get_quote",
     title: "Quote a cross-chain swap",
     description:
-      "Get live prices for swapping one asset into another, across chains, by racing NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden. Returns the best route and the alternatives, with output after fees, guaranteed minimum, all-in cost % and ETA. Use it to answer \"how much X do I get for Y\" and to show the user the numbers before create_swap. It creates nothing and needs no addresses. Quotes move with the market, so do not reuse one after a few minutes; create_swap re-quotes on its own. Shieldz charges a flat 0.15% (already in amount_out). Errors explain unsupported pairs or minimum and maximum amounts. Rate-limited per caller (roughly 20 quotes in a burst, then one every 2 seconds).",
+      "Get live prices for swapping one asset into another, across chains, by racing NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden. Returns the best route and the alternatives, with output after fees, guaranteed minimum, all-in cost % and ETA. Use it to answer \"how much X do I get for Y\" and to show the user the numbers before create_swap. It creates nothing and needs no addresses. from_asset is what the user sends and to_asset what they receive; they may sit on different chains. Give each as an exact asset id or CHAIN.SYMBOL; when a shorthand is ambiguous (bridged USDC, for example) the error lists the matching ids, and list_assets finds ids by name or chain. amount is how much from_asset the user sends, in from_asset's own units, never in to_asset or USD. Quotes move with the market, so do not reuse one after a few minutes; create_swap re-quotes on its own. Shieldz charges a flat 0.15% (already in amount_out). Errors explain unsupported pairs or minimum and maximum amounts. Rate-limited per caller (roughly 20 quotes in a burst, then one every 2 seconds).",
     inputSchema: {
       type: "object",
       properties: {
@@ -322,7 +322,7 @@ export const TOOLS: ToolDef[] = [
     name: "create_swap",
     title: "Create a swap (deposit address)",
     description:
-      "Open a non-custodial swap and return a one-time deposit address. Use it only after the user has seen a quote, agreed to the amount and route, and given you both addresses. NEVER invent, guess or reuse addresses from elsewhere in the conversation. It takes a fresh quote with the real addresses (or the protocol you pin), sets the minimum output from that quote, and refuses to return a deposit whose amounts differ from what was quoted. Nothing moves until the user sends exactly send_exactly from their own wallet before expires_at; the server never holds keys or signs. If the swap cannot complete, funds go back to refund_address. Each call creates a new deposit address, so do not call it again to \"retry\" a swap the user already funded. Rate-limited per caller (about 6 swaps in a burst, then one every 20 seconds).",
+      "Open a non-custodial swap and return a one-time deposit address. Use it only after the user has seen a quote, agreed to the amount and route, and given you both addresses. from_asset, to_asset and amount mean the same as in get_quote: pass the values the user agreed to. destination_address must be on to_asset's chain and refund_address on from_asset's chain, usually the sending wallet; BTC to ZEC, for example, needs a Zcash payout address and a Bitcoin refund address. NEVER invent, guess or reuse addresses from elsewhere in the conversation. Set protocol only to keep the route the user picked from get_quote's alternatives. The tool re-quotes with the real addresses, sets the minimum output from that quote and returns an error rather than a deposit if the amounts changed. Nothing moves until the user sends exactly send_exactly from their own wallet before expires_at; the server never holds keys or signs. If the swap cannot complete, funds go back to refund_address. Each call creates a new deposit address, so do not call it again to \"retry\" a swap the user already funded. Rate-limited per caller (about 6 swaps in a burst, then one every 20 seconds).",
     inputSchema: {
       type: "object",
       properties: {
@@ -422,7 +422,7 @@ export const TOOLS: ToolDef[] = [
     name: "get_swap_status",
     title: "Check swap status",
     description:
-      "Look up a swap made with create_swap by its swap_id and explain where it is: PENDING (no deposit seen yet), PROCESSING, SUCCESS, FAILED, REFUNDED, INCOMPLETE_DEPOSIT (less than required arrived) or EXPIRED (address closed, never send to it). Returns amounts in normal units and the deposit, payout and refund transaction links. Use it when the user asks whether their swap arrived. Read-only and safe to repeat; poll every 30 seconds or more, not in a tight loop.",
+      "Look up a swap made with create_swap by its swap_id and explain where it is: PENDING (no deposit seen yet), PROCESSING, SUCCESS, FAILED, REFUNDED, INCOMPLETE_DEPOSIT (less than required arrived) or EXPIRED (address closed, never send to it). swap_id is the protocol-prefixed id create_swap returned, such as near:<deposit address> or chainflip:<block>-<network>-<channel>; pass it unchanged, prefix included. Returns amounts in normal units and the deposit, payout and refund transaction links. A malformed id is rejected before any request, an unknown one returns \"No swap with that id\", and a router outage returns an error to retry later. Use it when the user asks whether their swap arrived. Read-only and safe to repeat; poll every 30 seconds or more, not in a tight loop.",
     inputSchema: {
       type: "object",
       properties: { swap_id: str('swap_id exactly as returned by create_swap, e.g. "near:0xAbc..." or "chainflip:123-Btc-45".') },
@@ -486,7 +486,7 @@ export const TOOLS: ToolDef[] = [
     name: "report_deposit",
     title: "Report a deposit transaction",
     description:
-      "Tell the router the hash of the deposit transaction the user just sent, so the swap is detected immediately instead of on the next scan. Optional: swaps are detected without it, and it never moves funds. Use it once, right after the user shares their tx hash, then follow up with get_swap_status. Calling it again with the same hash is harmless.",
+      "Tell the router the hash of the deposit transaction the user just sent, so the swap is detected immediately instead of on the next scan. Optional: swaps are detected without it, and it never moves funds. swap_id is the id create_swap returned for this swap. tx_hash is the hash of the transaction that sent funds to that swap's deposit_address on the source chain (0x-prefixed on EVM chains); never pass a payout hash or another swap's id. An unknown swap_id returns an error. Use it once, right after the user shares their tx hash, then follow up with get_swap_status. Calling it again with the same hash is harmless.",
     inputSchema: {
       type: "object",
       properties: {

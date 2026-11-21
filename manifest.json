@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "shieldz-swap",
   "display_name": "Shieldz Swap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Non-custodial cross-chain swaps: live route quotes and deposit-address swaps on 40+ chains. No API key.",
   "long_description": "Compare live cross-chain swap routes across NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden, create a swap that returns a one-time deposit address, and track it to payout. Covers BTC, ETH, SOL, ZEC, USDC, USDT and 340+ assets on 40+ chains. Non-custodial: the user sends funds from their own wallet and the server never holds keys. No account, no KYC, flat 0.15% fee included in quotes.",
   "author": {

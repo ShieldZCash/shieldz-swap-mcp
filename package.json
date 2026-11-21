@@ -1,6 +1,6 @@
 {
   "name": "@shieldz/swap-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mcpName": "io.github.ShieldZCash/swap-mcp",
   "description": "Cross-chain crypto swap for AI agents, powered by Shieldz Swap (https://swap.shieldz.cash). Swap BTC, ETH, SOL, ZEC, USDC, USDT and 340+ assets across 40+ chains from your own wallet: best route from NEAR Intents, Chainflip, Relay and more. No account, no KYC, flat 0.15% fee.",
   "type": "module",
