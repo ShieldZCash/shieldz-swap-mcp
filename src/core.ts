@@ -62,7 +62,10 @@ export function fromBaseUnits(base: string | null | undefined, decimals: number)
   if (base == null || !/^\d+$/.test(String(base))) return null;
   const s = String(base).padStart(decimals + 1, "0");
   const whole = s.slice(0, s.length - decimals).replace(/^0+(?=\d)/, "");
-  const frac = decimals ? s.slice(s.length - decimals).replace(/0+$/, "") : "";
+  let frac = decimals ? s.slice(s.length - decimals) : "";
+  let end = frac.length;
+  while (end > 0 && frac[end - 1] === "0") end--;
+  frac = frac.slice(0, end);
   return frac ? `${whole}.${frac}` : whole;
 }
 
