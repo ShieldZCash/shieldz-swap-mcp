@@ -16,6 +16,18 @@ Model Context Protocol server for [Shieldz Swap](https://swap.shieldz.cash). It 
 - **Flat 0.15% fee**, already included in the quoted output.
 - **Remote or local.** Hosted Streamable HTTP endpoint, npm package, Docker image or a one-click `.mcpb` bundle.
 
+## Install in Claude Code, Codex or Gemini CLI
+
+```
+/plugin install shieldz-swap --marketplace ShieldZCash/shieldz-swap-mcp
+```
+
+```
+gemini extensions install https://github.com/ShieldZCash/shieldz-swap-mcp
+```
+
+The repo also ships an agent skill at [`skills/shieldz-swap/SKILL.md`](skills/shieldz-swap/SKILL.md).
+
 ## Tools
 
 | Tool | Read-only | What it does |

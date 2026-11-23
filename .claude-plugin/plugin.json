@@ -1,0 +1,21 @@
+{
+  "name": "shieldz-swap",
+  "version": "0.1.1",
+  "description": "Non-custodial cross-chain crypto swaps with live route quotes across NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden. No API key, no account.",
+  "author": {
+    "name": "Shieldz",
+    "url": "https://swap.shieldz.cash"
+  },
+  "homepage": "https://swap.shieldz.cash",
+  "repository": "https://github.com/ShieldZCash/shieldz-swap-mcp",
+  "license": "MIT",
+  "keywords": [
+    "crypto",
+    "cross-chain",
+    "swap",
+    "bitcoin",
+    "usdc",
+    "non-custodial"
+  ],
+  "privacyPolicyUrl": "https://swap.shieldz.cash/privacy"
+}

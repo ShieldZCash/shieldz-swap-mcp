@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "shieldz-swap": {
+      "type": "http",
+      "url": "https://swap.shieldz.cash/mcp"
+    }
+  }
+}

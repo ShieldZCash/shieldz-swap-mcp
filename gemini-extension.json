@@ -1,0 +1,12 @@
+{
+  "name": "shieldz-swap",
+  "version": "0.1.1",
+  "description": "Non-custodial cross-chain crypto swaps: live route quotes across NEAR Intents, Chainflip, Relay, MAYAChain, BOB Gateway and Garden, deposit-address swaps on 40+ chains. No API key, no account.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "shieldz-swap": {
+      "type": "http",
+      "url": "https://swap.shieldz.cash/mcp"
+    }
+  }
+}
